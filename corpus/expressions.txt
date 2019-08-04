@@ -58,6 +58,19 @@ a >>> b;
   (binary_expression (integer_literal (decimal_integer_literal)) (integer_literal (decimal_integer_literal)))
   (binary_expression (integer_literal (decimal_integer_literal)) (integer_literal (decimal_integer_literal))))
 
+===
+instanceof binary expression
+===
+
+x instanceof String;
+x instanceof foo.String;
+
+---
+
+(program
+  (binary_expression (identifier) (type_identifier))
+  (binary_expression (identifier) (scoped_type_identifier (type_identifier) (type_identifier))))
+
 ============================
 if statements
 ============================

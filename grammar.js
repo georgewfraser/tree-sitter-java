@@ -298,6 +298,11 @@ module.exports = grammar({
     // type_arguments.
     // TODO: Verify precedence is legit.
     binary_expression: $ => choice(
+      prec.left(PREC.REL, seq(
+        $._expression,
+        'instanceof',
+        $._class_or_interface_type
+      )),
       ...[
       ['>', PREC.REL],
       ['<', PREC.REL],
@@ -317,8 +322,7 @@ module.exports = grammar({
       ['%', PREC.TIMES],
       ['<<', PREC.TIMES],
       ['>>', PREC.TIMES],
-      ['>>>', PREC.TIMES],
-      ['instanceof', PREC.REL]
+      ['>>>', PREC.TIMES]
     ].map(([operator, precedence]) =>
       prec.left(precedence, seq(
         $._expression,
